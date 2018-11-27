@@ -10,7 +10,7 @@ class Cidades_model extends CI_model {
 
 
 
-public function getCidadesByIdEstado($IDESTADO){
+public function getCidadesByIdEstado($IDESTADO=null){
 
     return $this->db
         ->where("IDESTADO", $IDESTADO)
