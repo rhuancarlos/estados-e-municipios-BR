@@ -5,26 +5,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 	<meta charset="utf-8">
 	<title><?PHP echo $title_page; ?></title>
-
-	<script type="text/javascript">
-
-	$(function(){
-		$('#estados').change(function(){
-			var id_estado = $('#estados').val();
-			alert(id_estado);
-		
-		});
-		
-	});
-	</script>
 </head>
 <body>
 
 <div class="container">
 
 	<div class="row">
-
-		<h1> Estados e Minicipios Brasileiros</h1>
+		<div class="text-center">
+		<h1>CodeIgniter - Estados e Minicipios Brasileiros</h1>
+		</div>
 
 		<div class="form-group">
 		
@@ -54,5 +43,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+
+	var base_url = "<?PHP echo base_url() ?>";
+		$(function(){
+			$('#estados').change(function(){
+
+				$('#cidades').attr('disabled', 'disabled');
+				$('#cidades').html('<option> Carregando ... </option>');
+
+				var id_estado = $('#estados').val();
+				//console.log(id_estado + );
+				$.post(base_url + 'index.php/cidade/getCidades', {
+					id_estado : id_estado
+					}, function(data){
+						//console.log(data);
+						$('#cidades').html(data);
+						$('#cidades').removeAttr('disabled');
+				});
+			});
+		});
+	</script>
 </body>
 </html>
